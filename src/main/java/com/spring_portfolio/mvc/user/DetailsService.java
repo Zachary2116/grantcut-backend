@@ -74,6 +74,11 @@ public class DetailsService implements UserDetailsService {  // "implements" tie
         user.setPassword(passwordEncoder().encode(user.getPassword()));
         repository.save(user);
     }
+    public void changePassword(String email, String password) {
+        User user = getByEmail(email);
+        user.setPassword(passwordEncoder().encode(password));
+        repository.save(user);
+    }
 
     public User get(long id) {
         return (repository.findById(id).isPresent())
@@ -117,7 +122,7 @@ public class DetailsService implements UserDetailsService {  // "implements" tie
                         break;
                     }
                 }
-                if (addRole) user.getRoles().add(role); 
+                if (addRole) user.addRole(role); 
                 System.out.println(email + " has role " + roleName);  // everything is valid for adding role
             }
             else {

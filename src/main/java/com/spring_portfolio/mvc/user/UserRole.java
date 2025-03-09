@@ -21,7 +21,9 @@ public class UserRole {
     public UserRole(String name) {
         this.name = name;
     }
-
+    public String getName() {
+        return this.name;
+    }
     public static UserRole[] init() {
         UserRole customer = new UserRole("ROLE_USER");
         UserRole admin = new UserRole("ROLE_ADMIN");

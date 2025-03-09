@@ -45,7 +45,7 @@ public class ModelInit {
                 List<User> userFound = userService.list(user.getName(), user.getEmail());  // lookup
                 if (userFound.size() == 0) {
                     userService.save(user);  // save
-                    userService.addRoleToUser(user.getEmail(), "ROLE_STUDENT");
+                    userService.addRoleToUser(user.getEmail(), "ROLE_USER");
                     
                 }
             }

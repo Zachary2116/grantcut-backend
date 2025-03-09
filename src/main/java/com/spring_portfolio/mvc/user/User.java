@@ -7,11 +7,13 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 
 import org.hibernate.annotations.JdbcTypeCode;
@@ -92,18 +94,15 @@ public class User implements Comparable<User>{
         }
     }
     */
-    @JdbcTypeCode(SqlTypes.JSON)
-    @Column(columnDefinition = "jsonb")
-    private Map<String,Map<String, Object>> stats = new HashMap<>(); 
 
     @Column
 	private String ImageEncoder;
 
-    // public void addClassCode(ClassCode ClassCode) {
-    //     this.classCodes.add(ClassCode);
-    //     ClassCode.setUser(this);
-    // }
-    
+    @Column
+    private String role = roles.stream()
+                          .map(UserRole::toString) // Ensure UserRole has a meaningful toString() method
+                          .collect(Collectors.joining(", "));
+
     // Constructor used when building object from an API
     public User(String email, String password, String name, Date dob) {
         this.email = email;
@@ -111,9 +110,15 @@ public class User implements Comparable<User>{
         this.name = name;
         this.dob = dob;
         this.ImageEncoder = null;
-        // this.roles.add(role);
     }
 
+    public void addRole(UserRole role) {
+        this.roles.add(role);
+        if (this.role.equals("")) {
+            this.role += ",";
+        }
+        this.role += role.toString();
+    }
     // A custom getter to return age from dob attribute
     public int getAge() {
         if (this.dob != null) {
