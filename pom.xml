@@ -177,7 +177,7 @@
             <artifactId>spring-boot-maven-plugin</artifactId>
             <version>3.1.5</version>
             <configuration>
-                <mainClass>com.nighthawk.spring_portfolio.Main</mainClass>
+                <mainClass>com.spring_portfolio.Main</mainClass>
             </configuration>
         </plugin>
     </plugins>
